@@ -15,6 +15,15 @@ class RepertorioService extends ApiService {
         return this.get('/')
     }
 
+    buscarPeloId(id) {
+        return this.get(`/${id}`)
+    }
+
+
+    deletar(id) {
+        return this.delete(`/${id}`)
+    }
+
 
     validar(repertorio) {
         const erros = []

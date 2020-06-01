@@ -43,6 +43,7 @@ class CadastroRepertorio extends React.Component {
         const repertorio = { nome, observacoes, dataExecucao, items: items, idUsuario: usuarioLogado.id }
         this.service.salvar(repertorio)
             .then(response => {
+                this.props.history.push('/repertorios')
                 mensagemSucesso("Salvo com Sucesso!")
                 this.service.validar(repertorio)
                 this.setState({ targetList: [], itemsSelecionados: [], itemsEncontrados: [], sourceList: [] })
