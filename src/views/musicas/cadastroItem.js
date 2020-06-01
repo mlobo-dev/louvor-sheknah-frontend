@@ -19,7 +19,7 @@ class CadastroItem extends React.Component {
         categoria: '',
         artista: '',
         letra: '',
-        idUsuario: null
+        idUsuario: 0
     }
 
 
@@ -43,6 +43,7 @@ class CadastroItem extends React.Component {
 
     submit = () => {
         const usuarioLogado = LocalStorageService.obterItem('_usuario_logado')
+
         const { nome, urlCifra, urlVideo, urlAudio, categoria, artista, letra } = this.state
         const item = { nome, urlCifra, urlVideo, urlAudio, categoria, artista, letra, idUsuario: usuarioLogado.id }
 
@@ -57,7 +58,7 @@ class CadastroItem extends React.Component {
 
         this.service.salvar(item)
             .then(response => {
-                this.props.history.push('/consulta-lancamentos')
+                this.props.history.push('/repertorios')
                 messages.mensagemSucesso('item cadastrado com sucesso')
             }).catch(error => {
                 messages.mensagemErro('Erro ao tentar salvar lançamento', error.response.data)
@@ -93,10 +94,6 @@ class CadastroItem extends React.Component {
                 <button className="ql-underline" aria-label="Underline"></button>
             </span>
         );
-
-        // urlCifra: '',
-        // urlAudio: '',
-        // letra: ''
 
 
         return (
@@ -169,13 +166,13 @@ class CadastroItem extends React.Component {
                         </FormGroup>
                     </div>
                     <div className="col-md-4">
-                        <FormGroup id="inputUrlVideo" label=" URL Cifra: ">
+                        <FormGroup id="inputUrlCifra" label=" URL Cifra: ">
                             <input
-                                id="inputUrlVideo"
+                                id="inputUrlCifra"
                                 type="text"
-                                name="urlVideo"
+                                name="urlCifra"
                                 className="form-control"
-                                value={this.state.urlVideo}
+                                value={this.state.urlCifra}
                                 onChange={this.handleChange}
                             />
                         </FormGroup>
@@ -185,9 +182,13 @@ class CadastroItem extends React.Component {
                         <FormGroup id="inputLetra" label="Letra ">
                             <Editor
                                 style={{ height: '320px' }}
-                                value={this.state.text}
-                                onTextChange={(e) => this.setState({ text: e.htmlValue })}
+                                value={this.state.letra}
+                                id="inputLetra"
+                                name="letra"
+
                                 headerTemplate={header}
+                                onTextChange={(e) => this.setState({ letra: e.htmlValue })}
+
                             />
                         </FormGroup>
                     </div>

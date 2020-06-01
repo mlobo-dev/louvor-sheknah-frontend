@@ -22,23 +22,28 @@ class ItemService extends ApiService {
         return this.get('/')
     }
 
+    buscar(texto) {
+        return this.get(`/buscar/${texto}`)
+    }
+
+    buscarPeloNome(nome) {
+        return this.get(`/buscar/nome/${nome}`)
+    }
+
     validar(item) {
         const erros = []
 
         if (!item.nome) {
             erros.push('O campo nome é obrigatório')
         }
-
-        if (!item.email) {
-            erros.push('O campo email é obrigatório')
-        } else if (!item.email.match(/^[a-z0-9.]+@[a-z0-9]+\.[a-z]/)) {
-            erros.push('O email informado não é válido')
+        if (!item.artista) {
+            erros.push('O campo Artista é obrigatório')
         }
-
-        if (!item.senha || !item.senhaRepeticao) {
-            erros.push('Os campos de senha são obrigatórios')
-        } else if (item.senha !== item.senhaRepeticao) {
-            erros.push('As senhas não conferem')
+        if (!item.categoria) {
+            erros.push('O campo nome é obrigatório')
+        }
+        if (!item.urlVideo && !item.urlAudio) {
+            erros.push('Informe pelo menos uma referência de Vídeo ou Áudio.')
         }
 
         if (erros && erros.length > 0) {
